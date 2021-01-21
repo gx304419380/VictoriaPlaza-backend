@@ -14,36 +14,37 @@ import java.time.LocalDateTime;
 public class Ride {
 
     @TableId(type = IdType.AUTO)
-    Long id;
 
-    String content;
+    private Long id;
 
-    String destination;
+    private String content;
 
-    String location;
+    private String destination;
 
-    Integer direction;
+    private String location;
 
-    String startPoint;
+    private Integer direction;
 
-    Integer type;
+    private String startPoint;
 
-    String username;
+    private Integer type;
 
-    String openId;
+    private String username;
 
-    String phone;
+    private Long openId;
 
-    LocalDateTime rideTime;
+    private String phone;
 
-    Double startAddressLatitude;
-    Double startAddressLongitude;
-    String startAddressName;
-    String startAddressAddress;
+    private LocalDateTime rideTime;
 
-    Double endAddressLatitude;
-    Double endAddressLongitude;
-    String endAddressName;
-    String endAddressAddress;
+    private Double startAddressLatitude;
+    private Double startAddressLongitude;
+    private String startAddressName;
+    private String startAddressAddress;
+
+    private Double endAddressLatitude;
+    private Double endAddressLongitude;
+    private String endAddressName;
+    private String endAddressAddress;
 
 }

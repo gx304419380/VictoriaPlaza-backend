@@ -17,7 +17,7 @@ public class RideDto {
     private String startPoint;
     private Integer type;
     private String username;
-    private String openId;
+    private Long openId;
     private String phone;
     private LocalDateTime rideTime;
     private StartAddress startAddress;
@@ -64,14 +64,20 @@ public class RideDto {
         Ride ride = new Ride();
         BeanUtils.copyProperties(this, ride);
 
-        return ride.setStartAddressAddress(startAddress.address)
-                .setStartAddressLatitude(startAddress.latitude)
-                .setStartAddressLongitude(startAddress.longitude)
-                .setStartAddressName(startAddress.name)
-                .setEndAddressAddress(endAddress.address)
-                .setEndAddressLatitude(endAddress.latitude)
-                .setEndAddressLongitude(endAddress.longitude)
-                .setEndAddressName(endAddress.name);
+        if (startAddress != null) {
+            ride.setStartAddressAddress(startAddress.address)
+                    .setStartAddressLatitude(startAddress.latitude)
+                    .setStartAddressLongitude(startAddress.longitude)
+                    .setStartAddressName(startAddress.name);
+        }
+
+        if (endAddress != null) {
+            ride.setEndAddressAddress(endAddress.address)
+                    .setEndAddressLatitude(endAddress.latitude)
+                    .setEndAddressLongitude(endAddress.longitude)
+                    .setEndAddressName(endAddress.name);
+        }
+        return ride;
 
     }
 }

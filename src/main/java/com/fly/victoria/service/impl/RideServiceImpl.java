@@ -6,11 +6,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fly.victoria.dao.CallDao;
 import com.fly.victoria.dao.RideDao;
+import com.fly.victoria.dto.BaseDto;
 import com.fly.victoria.dto.PageDto;
+import com.fly.victoria.dto.RideCondition;
+import com.fly.victoria.dto.RideDto;
+import com.fly.victoria.entity.Call;
 import com.fly.victoria.entity.Ride;
 import com.fly.victoria.service.RideService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -30,13 +35,15 @@ public class RideServiceImpl extends ServiceImpl<RideDao, Ride> implements RideS
 
 
     @Override
-    public PageDto<Ride> searchRide(Integer type,
-                                    String openId,
-                                    LocalDateTime rideTime,
-                                    String orderColumn,
-                                    Boolean isAsc,
-                                    Integer pageNo,
-                                    Integer pageSize) {
+    public PageDto<Ride> searchRide(RideCondition condition) {
+
+        Integer type = condition.getType();
+        Long openId = condition.getOpenId();
+        LocalDateTime rideTime = condition.getRideTime();
+        String orderBy = condition.getOrderBy();
+        Boolean isAsc = condition.getIsAsc();
+        Integer pageNo = condition.getPageNo();
+        Integer pageSize = condition.getPageSize();
 
         QueryWrapper<Ride> wrapper = new QueryWrapper<>();
         wrapper.eq(type != null, "type", type)
@@ -45,12 +52,30 @@ public class RideServiceImpl extends ServiceImpl<RideDao, Ride> implements RideS
 
         Page<Ride> page = new Page<>(pageNo, pageSize);
 
-        if (orderColumn != null) {
-            page.setOrders(List.of(new OrderItem(orderColumn, isAsc)));
+        if (orderBy != null) {
+            page.setOrders(List.of(new OrderItem(orderBy, isAsc)));
         }
 
         Page<Ride> ridePage = rideDao.selectPage(page, wrapper);
 
         return PageDto.of(ridePage);
+    }
+
+
+    @Override
+    public List<RideDto> callHistory(String openId, LocalDateTime start) {
+
+        return rideDao.selectCallHistory(openId, start);
+    }
+
+
+    @Override
+    public void delete(Long id) {
+        rideDao.deleteById(id);
+    }
+
+    @Override
+    public void saveCall(Call call) {
+        callDao.insert(call);
     }
 }

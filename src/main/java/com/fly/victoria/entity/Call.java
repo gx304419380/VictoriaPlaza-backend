@@ -14,16 +14,16 @@ import java.time.LocalDateTime;
 public class Call {
 
     @TableId(type = IdType.AUTO)
-    Long id;
+    private Long id;
 
-    LocalDateTime creatTime;
+    private LocalDateTime creatTime;
 
-    LocalDateTime updateTime;
+    private LocalDateTime updateTime;
 
-    String openId;
+    private Long openId;
 
-    String rideId;
+    private Long rideId;
 
-    LocalDateTime rideTime;
+    private LocalDateTime rideTime;
 
 }
