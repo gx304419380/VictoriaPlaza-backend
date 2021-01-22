@@ -5,6 +5,9 @@ import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 @Data
 public class RideDto {
@@ -19,7 +22,7 @@ public class RideDto {
     private String username;
     private Long openId;
     private String phone;
-    private LocalDateTime rideTime;
+    private OffsetDateTime rideTime;
     private StartAddress startAddress;
     private EndAddress endAddress;
 
@@ -46,6 +49,8 @@ public class RideDto {
     public RideDto(Ride ride) {
         BeanUtils.copyProperties(ride, this);
 
+        this.rideTime = ride.getRideTime().atZone(ZoneId.systemDefault()).toOffsetDateTime();
+
         startAddress = new StartAddress();
         endAddress = new EndAddress();
 
@@ -63,6 +68,8 @@ public class RideDto {
     public Ride convertTo() {
         Ride ride = new Ride();
         BeanUtils.copyProperties(this, ride);
+
+        ride.setRideTime(this.rideTime.atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime());
 
         if (startAddress != null) {
             ride.setStartAddressAddress(startAddress.address)

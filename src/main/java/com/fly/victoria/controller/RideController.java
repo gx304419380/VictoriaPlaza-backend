@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +44,9 @@ public class RideController {
         log.info("save ride: {}", rideDto);
         Ride ride = rideDto.convertTo();
 
-        rideService.saveOrUpdate(ride);
+        log.info("now = {}", OffsetDateTime.now());
+
+        rideService.saveRide(ride);
         return new BaseDto<>(ride);
     }
 

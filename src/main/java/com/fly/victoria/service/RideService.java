@@ -23,4 +23,6 @@ public interface RideService extends IService<Ride> {
     void saveCall(Call call);
 
     void delete(Long id);
+
+    void saveRide(Ride ride);
 }

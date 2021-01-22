@@ -28,7 +28,7 @@ create table tb_call
 	ride_id bigint null,
 	ride_time datetime(6) null,
 	update_time datetime(6) null
-);
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table tb_ride
 (
@@ -52,7 +52,8 @@ create table tb_ride
 	start_point varchar(40) null,
 	type smallint null,
 	username varchar(40) null
-);
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;;
+
 
 
 *************************************************

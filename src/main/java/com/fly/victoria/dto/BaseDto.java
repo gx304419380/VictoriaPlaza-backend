@@ -14,4 +14,11 @@ public class BaseDto<T> {
     public BaseDto(T data) {
         this.data = data;
     }
+
+    public static <T> BaseDto<T> error(Exception e) {
+        BaseDto<T> dto = new BaseDto<>(null);
+        dto.setMsg(e.getMessage());
+        dto.setCode(400);
+        return dto;
+    }
 }
