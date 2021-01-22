@@ -19,6 +19,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class RideServiceImpl extends ServiceImpl<RideDao, Ride> implements RideService {
@@ -65,7 +68,9 @@ public class RideServiceImpl extends ServiceImpl<RideDao, Ride> implements RideS
     @Override
     public List<RideDto> callHistory(String openId, LocalDateTime start) {
 
-        return rideDao.selectCallHistory(openId, start);
+        List<Ride> rideList = rideDao.selectCallHistory(openId, start);
+
+        return rideList.stream().map(RideDto::new).collect(toList());
     }
 
 
