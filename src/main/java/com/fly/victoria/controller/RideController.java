@@ -42,7 +42,7 @@ public class RideController {
         log.info("save ride: {}", rideDto);
         Ride ride = rideDto.convertTo();
 
-        rideService.save(ride);
+        rideService.saveOrUpdate(ride);
         return new BaseDto<>(ride);
     }
 
